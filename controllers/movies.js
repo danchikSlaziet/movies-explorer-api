@@ -3,7 +3,7 @@ const Error404 = require('../errors/Error404');
 const Movie = require('../models/movie');
 
 const getAllMovies = (req, res, next) => {
-  Movie.find({}, '-_id')
+  Movie.find({ owner: req.user._id }, '-_id')
     .then((movie) => res.send(movie))
     .catch(next);
 };
