@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// const cors = require('cors');
+const cors = require('cors');
 const { errors, celebrate, Joi } = require('celebrate');
 const cookieParser = require('cookie-parser');
 const commonRouter = require('./routes/index');
@@ -12,7 +12,7 @@ require('dotenv').config();
 const Error404 = require('./errors/Error404');
 const centralErrorHandler = require('./middlewares/centralErrorHandler');
 
-const { PORT = 3000, MONGODB_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
+const { PORT = 4000, MONGODB_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
 const app = express();
 
 mongoose.connect(MONGODB_URL)
@@ -21,7 +21,7 @@ mongoose.connect(MONGODB_URL)
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use(cors({ origin: 'сайт фронта', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 app.use(requestLogger);
 

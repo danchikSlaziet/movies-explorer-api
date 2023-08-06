@@ -4,7 +4,6 @@ const { getAllMovies, addNewMovie, deleteMovie } = require('../controllers/movie
 
 router.post('/movies', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
     country: Joi.string().required(),
     director: Joi.string().required(),
     duration: Joi.number().required(),

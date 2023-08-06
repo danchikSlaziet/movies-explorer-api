@@ -9,7 +9,6 @@ const getAllMovies = (req, res, next) => {
 };
 const addNewMovie = (req, res, next) => {
   const {
-    name,
     country,
     director,
     duration,
@@ -24,7 +23,6 @@ const addNewMovie = (req, res, next) => {
   } = req.body;
   const owner = req.user._id;
   Movie.create({
-    name,
     country,
     director,
     duration,
