@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// const cors = require('cors');
+const cors = require('cors');
 const { errors, celebrate, Joi } = require('celebrate');
 const cookieParser = require('cookie-parser');
 const commonRouter = require('./routes/index');
@@ -21,7 +21,7 @@ mongoose.connect(MONGODB_URL)
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use(cors({ origin: 'сайт фронта', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 app.use(requestLogger);
 
