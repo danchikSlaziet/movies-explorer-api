@@ -32,6 +32,7 @@ const login = (req, res, next) => {
       res.cookie('jwt', token, {
         httpOnly: true,
         sameSite: 'none',
+        secure: true,
       });
       res.send({ mail: email, userID: user._id });
     })
