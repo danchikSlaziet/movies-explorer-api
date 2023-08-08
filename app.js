@@ -41,7 +41,11 @@ app.post('/signup', celebrate({
 }), createUser);
 app.get('/signout', (req, res) => {
   // вот здесь кука удаляется, у меня всё работает и удаляется
-  res.clearCookie('jwt', { httpOnly: true });
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+  });
   res.status(200).json({ message: 'кука удалена' });
 });
 
