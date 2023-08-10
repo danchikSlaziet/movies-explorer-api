@@ -38,7 +38,6 @@ const addNewMovie = (req, res, next) => {
   })
     .then((movie) => {
       res.send({
-        name: movie.name,
         country: movie.country,
         director: movie.director,
         duration: movie.duration,
@@ -56,27 +55,28 @@ const addNewMovie = (req, res, next) => {
     .catch(next);
 };
 const deleteMovie = (req, res, next) => {
-  Movie.findOne({ movieId: req.params.movieId })
+  Movie.findOne({ movieId: req.params.movieId, owner: req.user._id })
     .then((movie) => {
       if (!movie) {
         throw new Error404('Фильм с данным ID не найден');
       } else if (movie.owner.toString() === req.user._id.toString()) {
-        Movie.findOneAndRemove({ movieId: req.params.movieId })
-          .then((movieItem) => res.send({
-            name: movieItem.name,
-            country: movieItem.country,
-            director: movieItem.director,
-            duration: movieItem.duration,
-            year: movieItem.year,
-            description: movieItem.description,
-            image: movieItem.image,
-            trailerLink: movieItem.trailerLink,
-            nameRU: movieItem.nameRU,
-            nameEN: movieItem.nameEN,
-            thumbnail: movieItem.thumbnail,
-            movieId: movieItem.movieId,
-            owner: movieItem.owner,
-          }))
+        Movie.findOneAndRemove({ movieId: req.params.movieId, owner: req.user._id })
+          .then((movieItem) => {
+            res.send({
+              country: movieItem.country,
+              director: movieItem.director,
+              duration: movieItem.duration,
+              year: movieItem.year,
+              description: movieItem.description,
+              image: movieItem.image,
+              trailerLink: movieItem.trailerLink,
+              nameRU: movieItem.nameRU,
+              nameEN: movieItem.nameEN,
+              thumbnail: movieItem.thumbnail,
+              movieId: movieItem.movieId,
+              owner: movieItem.owner,
+            });
+          })
           .catch(next);
       } else {
         throw new Error403('у вас нет прав на удаление чужого фильма');
