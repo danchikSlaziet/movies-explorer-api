@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const isEmail = require('validator/lib/isEmail');
 const bcrypt = require('bcryptjs');
 const Error401 = require('../errors/Error401');
 
@@ -9,8 +8,10 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true,
     validate: {
-      validator: (v) => isEmail(v),
-      message: 'Неправильный формат почты',
+      validator(v) {
+        return /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v);
+      },
+      message: 'Invalid email.',
     },
   },
   password: {

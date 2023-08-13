@@ -22,19 +22,20 @@ mongoose.connect(MONGODB_URL)
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({ origin: 'https://movies-explorer-front.nomoreparties.co', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
+// 'https://movies-explorer-front.nomoreparties.co'
 
 app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
+    email: Joi.string().required().pattern(/^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/),
     password: Joi.string().required().min(8),
   }),
 }), login);
 app.post('/signup', celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
+    email: Joi.string().required().pattern(/^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/),
     password: Joi.string().required(),
     name: Joi.string().min(2).max(30),
   }),

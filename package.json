@@ -24,7 +24,6 @@
     "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.2",
-    "validator": "^13.9.0",
     "winston": "^3.10.0"
   },
   "devDependencies": {
