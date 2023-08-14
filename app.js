@@ -22,8 +22,7 @@ mongoose.connect(MONGODB_URL)
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
-// 'https://movies-explorer-front.nomoreparties.co'
+app.use(cors({ origin: 'https://movies-explorer-front.nomoreparties.co', credentials: true }));
 
 app.use(requestLogger);
 
